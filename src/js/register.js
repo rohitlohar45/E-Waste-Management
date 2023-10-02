@@ -10,14 +10,12 @@ $(document).ready(function () {
 });
 
 function addUser() {
-	var accountType = $("#accountType").val();
-	if (accountType === null) {
-		alert("Please select an option");
-		$("#accountType").focus();
-		return;
-	}
-
-	switch (accountType) {
+	console.log("Hello");
+	switch ($("#accountType").val()) {
+		case null:
+			alert("Please select an option");
+			$("#accountType").focus();
+			break;
 		case "Producer":
 			addProducer();
 			break;
@@ -35,29 +33,28 @@ function addUser() {
 	}
 }
 
-function handleDuplicateAccountError(accountType, exists) {
-	var typeName = accountType.charAt(0).toUpperCase() + accountType.slice(1);
-	var errorMsg = `${typeName} is already associated with this account`;
-	if (exists) {
-		throw new Error(errorMsg);
-	}
-}
-
 function addProducer() {
+	var exists = false;
 	var name = $("#name").val();
-	var contractInstance;
-
 	App.contracts.AdminContract.deployed()
 		.then(function (instance) {
-			contractInstance = instance;
-			return contractInstance.checkProducer(App.account);
+			return instance.checkProducer(App.account);
 		})
-		.then(function (exists) {
-			handleDuplicateAccountError("producer", exists);
-			return contractInstance.addProducer(App.account, name);
+		.then(function (res) {
+			exists = res;
+			return App.contracts.AdminContract.deployed();
+		})
+		.then(function (instance) {
+			if (!exists) {
+				return instance.addProducer(App.account, name, { from: App.account });
+			} else {
+				alert("Producer is already associated with this account");
+			}
 		})
 		.then(function (result) {
-			console.log("Producer added successfully:", result);
+			if (result) {
+				console.log("Producer added successfully:", result);
+			}
 		})
 		.catch(function (error) {
 			console.error("Error adding producer:", error);
@@ -66,22 +63,27 @@ function addProducer() {
 }
 
 function addRetailer() {
+	var exists = false;
 	var name = $("#name").val();
-	var contractInstance;
-
-	console.log(App.account);
-
 	App.contracts.AdminContract.deployed()
 		.then(function (instance) {
-			contractInstance = instance;
-			return contractInstance.checkRetailer(App.account);
+			return instance.checkRetailer(App.account);
 		})
-		.then(function (exists) {
-			handleDuplicateAccountError("retailer", exists);
-			return contractInstance.addRetailer(App.account, name);
+		.then(function (res) {
+			exists = res;
+			return App.contracts.AdminContract.deployed();
+		})
+		.then(function (instance) {
+			if (!exists) {
+				return instance.addRetailer(App.account, name, { from: App.account });
+			} else {
+				alert("Retailer is already associated with this account");
+			}
 		})
 		.then(function (result) {
-			console.log("Retailer added successfully:", result);
+			if (result) {
+				console.log("Retailer added successfully:", result);
+			}
 		})
 		.catch(function (error) {
 			console.error("Error adding retailer:", error);
@@ -91,19 +93,25 @@ function addRetailer() {
 
 function addConsumer() {
 	var name = $("#name").val();
-	var contractInstance;
+	var adminContractInstance;
 
 	App.contracts.AdminContract.deployed()
 		.then(function (instance) {
-			contractInstance = instance;
-			return contractInstance.checkConsumer(App.account);
+			adminContractInstance = instance;
+			return adminContractInstance.checkConsumer(App.account);
 		})
 		.then(function (exists) {
-			handleDuplicateAccountError("consumer", exists);
-			return contractInstance.addConsumer(App.account, name, { from: App.account });
+			if (!exists) {
+				// Add the consumer if it doesn't exist
+				return adminContractInstance.addConsumer(App.account, name, { from: App.account });
+			} else {
+				alert("Consumer is already associated with this account");
+			}
 		})
 		.then(function (result) {
-			console.log("Consumer added successfully:", result);
+			if (result) {
+				console.log("Consumer added successfully:", result);
+			}
 		})
 		.catch(function (error) {
 			console.error("Error adding consumer:", error);
@@ -113,19 +121,25 @@ function addConsumer() {
 
 function addRecycleUnit() {
 	var name = $("#name").val();
-	var contractInstance;
+	var adminContractInstance;
 
 	App.contracts.AdminContract.deployed()
 		.then(function (instance) {
-			contractInstance = instance;
-			return contractInstance.checkRecycleUnit(App.account);
+			adminContractInstance = instance;
+			return adminContractInstance.checkRecycleUnit(App.account);
 		})
 		.then(function (exists) {
-			handleDuplicateAccountError("recycle unit", exists);
-			return contractInstance.addRecycleUnit(App.account, name);
+			if (!exists) {
+				// Add the recycle unit if it doesn't exist
+				return adminContractInstance.addRecycleUnit(App.account, name, { from: App.account });
+			} else {
+				alert("Recycle Unit is already associated with this account");
+			}
 		})
 		.then(function (result) {
-			console.log("Recycle Unit added successfully:", result);
+			if (result) {
+				console.log("Recycle Unit added successfully:", result);
+			}
 		})
 		.catch(function (error) {
 			console.error("Error adding recycle unit:", error);
