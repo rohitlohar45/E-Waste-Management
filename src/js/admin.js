@@ -77,6 +77,14 @@ adminApp = {
 					for (var i = 0; i < productCount; i++) {
 						pInstance.ProductList(i).then(function (singleProduct) {
 							//for table
+							console.log(singleProduct);
+							console.log(
+								singleProduct[5] == true,
+								singleProduct[6] == true,
+								singleProduct[10] == false,
+								singleProduct[0] == producerSelect,
+								singleProduct[7] != 0
+							);
 							if (
 								singleProduct[5] == true &&
 								singleProduct[6] == true &&
