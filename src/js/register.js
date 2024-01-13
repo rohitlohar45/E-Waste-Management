@@ -10,7 +10,6 @@ $(document).ready(function () {
 });
 
 function addUser() {
-	console.log("Hello");
 	switch ($("#accountType").val()) {
 		case null:
 			alert("Please select an option");
@@ -53,7 +52,8 @@ function addProducer() {
 		})
 		.then(function (result) {
 			if (result) {
-				console.log("Producer added successfully:", result);
+				alert("Producer added successfully:", result);
+				redirect();
 			}
 		})
 		.catch(function (error) {
@@ -82,7 +82,8 @@ function addRetailer() {
 		})
 		.then(function (result) {
 			if (result) {
-				console.log("Retailer added successfully:", result);
+				alert("Retailer added successfully:", result);
+				redirect();
 			}
 		})
 		.catch(function (error) {
@@ -110,7 +111,8 @@ function addConsumer() {
 		})
 		.then(function (result) {
 			if (result) {
-				console.log("Consumer added successfully:", result);
+				alert("Consumer added successfully:", result);
+				redirect();
 			}
 		})
 		.catch(function (error) {
@@ -138,11 +140,16 @@ function addRecycleUnit() {
 		})
 		.then(function (result) {
 			if (result) {
-				console.log("Recycle Unit added successfully:", result);
+				alert("Recycle Unit added successfully:", result);
+				redirect();
 			}
 		})
 		.catch(function (error) {
 			console.error("Error adding recycle unit:", error);
 			alert("Error adding recycle unit: " + error.message);
 		});
+}
+
+function redirect() {
+	// redirect user to login page
 }

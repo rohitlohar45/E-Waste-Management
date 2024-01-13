@@ -1,17 +1,3 @@
-const App = {
-	contracts: {},
-};
-
-$(document).ready(function () {
-	App.contracts = {};
-
-	// Wait for web3 before loading
-	$(window).on("load", async function () {
-		await App.initWeb3();
-		await RecycApp.loadAddress();
-	});
-});
-
 const RecycApp = {
 	loadAddress: async function () {
 		$(".container").hide();
@@ -141,8 +127,9 @@ const RecycApp = {
 	},
 };
 
-// $(document).ready(function () {
-// 	$(window).on("load", function () {
-// 		RecycApp.loadAddress();
-// 	});
-// });
+$(document).ready(function () {
+	$(window).on("load", async function () {
+		await App.initWeb3();
+		await RecycApp.loadAddress();
+	});
+});

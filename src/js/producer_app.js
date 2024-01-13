@@ -31,20 +31,6 @@ ProApp = {
     var price = $("#price").val();
     var quantity = $("#quantity").val();
 
-    console.log(
-      productname,
-      weightaluminium,
-      weightglass,
-      weightaluminium,
-      weightcopper,
-      weightmagnesium,
-      weightnickel,
-      weightplastic,
-      weightlead,
-      price,
-      quantity
-    );
-
     if (
       productname != "" &&
       weightglass != "" &&
@@ -241,6 +227,8 @@ ProApp = {
         var productList = $("#productList");
         productList.empty();
 
+        console.log(pCount);
+
         for (let i = 0; i < pCount; i++) {
           pInstance.ProductList(i).then(function (singleProduct) {
             if (
@@ -274,6 +262,7 @@ ProApp = {
 
         for (let i = 0; i < pCount; i++) {
           pInstance.ProductList(i).then(function (singleProduct) {
+            console.log(App.account, " ", singleProduct);
             if (
               App.account == singleProduct[0] &&
               singleProduct[5] == true &&
