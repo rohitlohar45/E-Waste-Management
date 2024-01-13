@@ -261,11 +261,16 @@ button:focus {
   box-shadow: 0px 0px 5px 0px rgba(168, 157, 157, 0.31);
   padding: 35px 20px;
   margin-bottom: 60px;
+  backdrop-filter: blur(6px);
 }
 
 .service .thumbnail:hover {
   -webkit-box-shadow: 2px 5.66px 20px 0px rgba(136, 136, 136, 0.2);
   box-shadow: 2px 5.66px 20px 0px rgba(136, 136, 136, 0.2);
+  border-radius: 30px;
+  transform: scale(1.07);
+  transition: 0.4s;
+  border: 2px solid #001F37;
 }
 
 .service .thumbnail:hover .service__title {
@@ -536,6 +541,10 @@ button:focus {
 .project .thumbnail:hover {
   -webkit-box-shadow: 2.5px 4.33px 11px 0px rgba(136, 136, 136, 0.24);
   box-shadow: 2.5px 4.33px 11px 0px rgba(136, 136, 136, 0.24);
+  transform: scale(1.1);
+  transition: all 0.5s;
+  border: 1px solid #123953;
+  border-radius: 20px;
 }
 
 .project .thumbnail:hover .project__title {
@@ -544,6 +553,10 @@ button:focus {
 
 .project .thumbnail img {
   width: 100%;
+}
+
+.project .thumbnail img {
+  border-radius: 20px;
 }
 
 .project .thumbnail .caption {

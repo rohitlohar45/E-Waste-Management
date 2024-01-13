@@ -31,7 +31,19 @@ ProApp = {
     var price = $("#price").val();
     var quantity = $("#quantity").val();
 
-    console.log(App.account);
+    console.log(
+      productname,
+      weightaluminium,
+      weightglass,
+      weightaluminium,
+      weightcopper,
+      weightmagnesium,
+      weightnickel,
+      weightplastic,
+      weightlead,
+      price,
+      quantity
+    );
 
     if (
       productname != "" &&
